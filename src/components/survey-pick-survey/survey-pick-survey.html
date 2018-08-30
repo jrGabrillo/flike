@@ -1,0 +1,5 @@
+<ion-list>
+  <button ion-item *ngFor="let survey of surveys" (click)="goToSurvey(survey)">
+    {{survey.question}}
+  </button>
+</ion-list>

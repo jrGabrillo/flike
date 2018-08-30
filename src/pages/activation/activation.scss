@@ -1,0 +1,14 @@
+page-activation {
+  img {
+    width: 100%;
+    padding: 5% 15%;
+  }
+  .activation-button {
+    margin-top: 15px;
+  }
+  .form-error {
+    background: color($colors,'danger');
+    color: white;
+    padding: 8px 16px;
+  }
+}

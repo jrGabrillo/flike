@@ -1,0 +1,4 @@
+<ion-list class="users-list">
+  <p class="user-select" *ngFor="let u of users" (click)="selectUser(u)">
+    <span *ngIf="u.id !=  user.id && u.typeOfUser == global.coachee">{{u.fullname}}</span></p>
+</ion-list>

@@ -1,0 +1,27 @@
+
+<ion-item class="survey-body" text-wrap>
+  <h3> <!--*ngIf="user.typeOfUser == globals.coachee"-->{{message.message}}</h3>
+  <h2>{{message.survey.question}}</h2>
+  <p *ngFor="let a of message.survey.answers" class="student-answer">
+      <span *ngIf="user.typeOfUser == globals.coach" >
+          <span *ngIf="getUserNameById(a.id) != ''"><b>{{getUserNameById(a.id)}}:</b>&nbsp;{{globals.getObjectString(a.value)}}</span>
+      </span>
+  </p>
+</ion-item>
+
+<ion-grid>
+  <ion-row>
+    <ion-item *ngFor="let o of message.survey.options">
+      <!--<ion-label class="image-title">{{o.value.Title}}</ion-label>-->
+      <ion-row class="survey-rank-wrap" (click)="saveOption($event,o)">
+        <ion-badge col-1 class="rank-badge">{{o.badge>0?o.badge:"&nbsp;"}}</ion-badge>
+        <p col-8 text-wrap>{{o.value}}</p>
+
+      </ion-row>
+
+      <!--<p class="footnote">{{o.value.Footnote}}</p>-->
+    </ion-item>
+  </ion-row>
+
+
+</ion-grid>

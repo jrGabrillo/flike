@@ -1,0 +1,38 @@
+<ion-item-group>
+  <ion-item class="survey-body" text-wrap>
+    <h3> <!--*ngIf="user.typeOfUser == globals.coachee">-->{{message.message}}</h3>
+    <h2>{{message.survey.question}}</h2>
+    <p *ngFor="let a of message.survey.answers" class="student-answer">
+        <span *ngIf="user.typeOfUser == globals.coach" >
+            <span *ngIf="getUserNameById(a.id) != ''"><b>{{getUserNameById(a.id)}}:</b>&nbsp;{{a.value}}</span>
+        </span>
+    </p>
+
+  </ion-item>
+  <ion-grid class="input-wrap">
+    <ion-row>
+      <ion-item no-lines>
+        <ion-textarea col-11
+                      id="otInput"
+                      [(ngModel)]="message.survey.userAnswer"
+                      (keyup.enter)="sendAnswer()"
+                      placeholder="{{answer}}"
+                      (keypress)="checkLength($event)"
+                      (input)="change()">
+        </ion-textarea>
+        <button class="button-send"
+                col-2 ion-button clear icon-only item-right
+                (click)="sendAnswer()" >
+          <ion-icon  name="send"></ion-icon>
+        </button>
+      </ion-item>
+      <span class="max-length">{{message.survey.maxLength - message.survey.userAnswer.length}}</span>
+
+    </ion-row>
+    <ion-row>
+      <span class="min-length" *ngIf="message.survey.minLength && message.survey.userAnswer.length < message.survey.minLength">{{minLength}}</span>
+      <span class="min-length" *ngIf="getNumWords() < message.survey.minWordCount">{{minWords}}</span>
+    </ion-row>
+  </ion-grid>
+
+</ion-item-group>

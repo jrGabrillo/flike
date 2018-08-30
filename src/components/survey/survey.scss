@@ -1,0 +1,32 @@
+survey {
+  .button-wrapper{
+    position: relative;
+    bottom: 10px;
+    width: 100%;
+  }
+  ion-label {
+    color: color($colors,'primary');
+  }
+  button {
+  }
+  .addButton {
+    border-radius: 50%;
+    float: right;
+    margin: 10px 5px;
+    width: 35px;
+    height: 35px;
+    background-color: color($colors,'primary');
+    color: white;
+    padding: 0;
+  }
+
+  .item-ios, .item-md {
+    padding:0;
+  }
+  [col-3] {
+    width: 23%;
+    flex: 0 0 23%;
+    max-width: 23%;
+  }
+
+}

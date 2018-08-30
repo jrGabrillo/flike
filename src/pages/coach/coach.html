@@ -1,0 +1,29 @@
+<ion-header>
+
+  <ion-navbar>
+    <button class="logout" ion-button clear (click)="logout()" icon-only>
+      <ion-icon name="log-out" item-left></ion-icon>
+    </button>
+    <ion-title>{{chatroomByUser.customerName}}</ion-title>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-tabs tabsPlacement="top" tabsLayout="icon-hide"  *ngIf="user.typeOfUser == globals.coach">
+    <ion-tab [root]="AllPage"    tabTitle="{{chatroomByUser.tabs.All}}"></ion-tab>
+    <ion-tab [root]="Group2Page" tabTitle="{{chatroomByUser.tabs.group_2}}"></ion-tab>
+    <ion-tab [root]="Group3Page" tabTitle="{{chatroomByUser.tabs.group_3}}"></ion-tab>
+  </ion-tabs>
+
+  <ion-nav #Nav *ngIf="user.typeOfUser == globals.coachee" [root]="AllPage"></ion-nav>
+
+
+</ion-content>
+
+<ion-footer>
+  <ion-item *ngIf="chatroomByUser.quote"><em [innerHTML]="chatroomByUser.quote"></em></ion-item>
+  <img *ngIf="chatroomByUser.quoteImgUrl" src="{{chatroomByUser.quoteImgUrl}}"/>
+</ion-footer>
