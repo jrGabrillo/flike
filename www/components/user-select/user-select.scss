@@ -1,0 +1,15 @@
+user-select {
+  .users-list{
+    margin-bottom: 6px;
+    .user-select {
+      span {
+        color: color($colors, 'fontcolor');
+        font-size: 1.3em;
+        text-align: left;
+        margin-left: 12px;
+
+      }
+    }
+  }
+
+}

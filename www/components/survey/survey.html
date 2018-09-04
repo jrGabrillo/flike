@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Survey</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <form>
+    <ion-item>
+      <ion-label floating>Write the question here</ion-label>
+      <ion-input type="text" name="question" [(ngModel)]="survey.question"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Select the type of question</ion-label>
+      <ion-select name="typeQuestion" [(ngModel)]="survey.typeQuestion">
+        <ion-option *ngFor="let type of globals.typeQuestion" value="{{type.key}}">{{type.value}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <div class="options-wrapper">
+      <!--open text with options-->
+      <ion-row *ngIf="survey.typeQuestion === globals.openText.key">
+        <ion-item col-6>
+          <ion-label floating>Minimun lenght</ion-label>
+          <ion-input type="number" name="minLenght" [(ngModel)]="survey.options.minLength"></ion-input>
+        </ion-item>
+        <ion-item col-6>
+          <ion-label floating>Minimun words</ion-label>
+          <ion-input type="number" name="minWords" [(ngModel)]="survey.options.minWords"></ion-input>
+        </ion-item>
+      </ion-row>
+      <!--how much-->
+      <ion-row *ngIf="survey.typeQuestion === globals.howMuch.key">
+        <ion-item col-6>
+          <ion-label floating>Minimun value (empty for no limit)</ion-label>
+          <ion-input type="number" name="minValue" [(ngModel)]="survey.options.minValue"></ion-input>
+        </ion-item>
+        <ion-item col-6>
+          <ion-label floating>Maximun value (empty for no limit)</ion-label>
+          <ion-input type="number" name="maxValue" [(ngModel)]="survey.options.maxValue"></ion-input>
+        </ion-item>
+      </ion-row>
+      <!--multi select-->
+      <div class="checkbox-wrapper" *ngIf="survey.typeQuestion === globals.checkBox.key">
+        <ion-item *ngFor="let checkbox of survey.options.checkbox; let i = index;">
+          <ion-label floating>option {{i+1}}</ion-label>
+          <ion-input [(ngModel)]="survey.options.checkBox[i].option" [ngModelOptions]="{standalone:true}"></ion-input>
+        </ion-item>
+        <button icon-only class="addButton" (click)="addOption($event,globals.checkBox.key)">
+          <ion-icon name="add"></ion-icon>
+        </button>
+      </div>
+      <!--single select-->
+      <div class="radioButton-wrapper" *ngIf="survey.typeQuestion === globals.radioButton.key">
+        <ion-item *ngFor="let radioButton of survey.options.radioButton; let i = index;">
+          <ion-label floating>option {{i+1}}</ion-label>
+          <ion-input [(ngModel)]="survey.options.radioButton[i].option" [ngModelOptions]="{standalone:true}"></ion-input>
+        </ion-item>
+        <button icon-only class="addButton" (click)="addOption($event,globals.radioButton.key)">
+          <ion-icon name="add"></ion-icon>
+        </button>
+      </div>
+      <!--rank question-->
+      <div class="radioButton-wrapper" *ngIf="survey.typeQuestion === globals.rank.key">
+        <ion-item *ngFor="let rank of survey.options.rank; let i = index;">
+          <ion-label floating>option {{i+1}}</ion-label>
+          <ion-input [(ngModel)]="survey.options.rank[i].option" [ngModelOptions]="{standalone:true}"></ion-input>
+
+        </ion-item>
+        <button icon-only class="addButton" (click)="addOption($event,globals.rank.key)">
+          <ion-icon name="add"></ion-icon>
+        </button>
+      </div>
+
+
+    </div>
+
+  </form>
+</ion-content>
+<ion-footer padding>
+  <ion-row class="button-wrapper">
+    <button col-3 ion-button color="danger" (click)="deleteSurvey()">Delete</button>
+    <button col-3 ion-button color="danger" (click)="cancel()">Cancel</button>
+    <button col-3 ion-button color="primary" (click)="saveSurvey($event)">Save</button>
+    <button col-3 ion-button color="secondary" (click)="sendSurvey()">Send</button>
+  </ion-row>
+</ion-footer>

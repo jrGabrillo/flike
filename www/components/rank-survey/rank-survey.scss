@@ -1,0 +1,15 @@
+rank-survey {
+  .survey-rank-wrap {
+    position: relative;
+    .rank-badge {
+      position: relative;
+      border: 1px solid color($colors,'fontcolor');
+      padding: 6px;
+      border-radius: 4px;
+      margin: 5px;
+      max-height: 30px;
+    }
+    p {
+    }
+  }
+}

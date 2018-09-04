@@ -1,0 +1,18 @@
+
+<ion-item class="survey-body" text-wrap>
+  <h3> <!--*ngIf="user.typeOfUser == globals.coachee"-->{{message.message}}</h3>
+  <h2>{{message.survey.question}}</h2>
+  <p *ngFor="let a of message.survey.answers" class="student-answer">
+      <span *ngIf="user.typeOfUser == globals.coach" >
+          <span *ngIf="getUserNameById(a.id) != ''"><b>{{getUserNameById(a.id)}}:</b>&nbsp;{{globals.getObjectKeyString(getUserAnswer(a.id))}}</span>
+      </span>
+  </p>
+</ion-item>
+
+<ion-list>
+  <ion-item *ngFor="let o of message.survey.options">
+    <ion-label>{{o.value}}</ion-label>
+    <ion-checkbox [checked]="o.checked" (ionChange)="saveOption($event.checked,o.id)"></ion-checkbox>
+
+  </ion-item>
+</ion-list>

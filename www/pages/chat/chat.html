@@ -1,0 +1,112 @@
+<ion-header>
+  <ion-navbar #navbar>
+    <ion-item no-lines *ngIf="chatroom">
+      <ion-avatar col-2 item-left>
+        <!--<img src="{{chatroom.chatroomImgUrl}}">-->
+        <ion-icon class="profile-icon" name="contact" ios="ios-contact-outline"></ion-icon>
+      </ion-avatar>
+
+      <h2 *ngFor="let userAccess of chatroom.userAccess; let i = index">
+        <span *ngIf="userAccess.id != user.id">{{userAccess.firstname}}<span *ngIf="i < chatroom.userAccess.length && i > 1">,&nbsp;</span></span>
+      </h2>
+      <div *ngIf="user.typeOfUser == globals.coach" class="indicator" [ngStyle]="{'background-color':chatroom.indicator}" item-end></div>
+
+      <button  *ngIf="user.typeOfUser == globals.coach" item-end icon-only ion-button clear (click)="markSeen($event)">
+        <ion-icon name="eye"></ion-icon>
+      </button>
+      <button col-1 *ngIf="user.typeOfUser == globals.coach" item-end icon-only ion-button clear (click)="goToMeeting($event)">
+        <img src="assets/img/agent_32px.png" class="handshake"/>
+      </button>
+    </ion-item>
+
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-icon name="arrow-down" class="arrow-get-more"></ion-icon>
+  <ion-refresher (ionRefresh)="getMoreMessages($event)">
+    <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            pullingText="{{loadMoreMessages}}"
+            refreshingSpinner="bubbles"
+            refreshingText="{{loadMoreMessages}}">
+
+    </ion-refresher-content>
+  </ion-refresher>
+  <div class="message-wrap">
+
+    <div *ngFor="let m of messages; let i = index"
+         class="message"
+         [class.left]=" user.id !== m.sender "
+         [class.right]=" user.id === m.sender ">
+      <!--<button class="load-more" ion-button clear *ngIf="i == 0" (click)="getMessages(limit+moreMsg,true)">{{loadMoreMessages}}</button>-->
+      <!--<img class="user-img" [src]="msg.userImgUrl" alt="" src="">-->
+      <!--<ion-spinner name="dots" *ngIf="msg.status === 'pending'"></ion-spinner>-->
+      <div class="msg-detail" *ngIf="m.typeOfMessage == globals.typeChat">
+        <div class="msg-info">
+          <p>
+            {{getUserNameById(m.sender)}},&nbsp;{{momentInstance(m.timestamp).fromNow()}}</p>
+        </div>
+        <div class="msg-content">
+          <span class="triangle"></span>
+          <p class="line-breaker ">{{m.message}}</p>
+        </div>
+      </div>
+
+      <div class="survey-detail" *ngIf="m.typeOfMessage == globals.typeSurvey">
+        <div class="msg-info">
+          <p>
+            {{getUserNameById(m.sender)}},&nbsp;{{momentInstance(m.timestamp).fromNow()}}</p>
+        </div>
+        <div>
+          <open-text-survey    *ngIf="m.survey.typeOfQuestion == globals.openText.key"    [message]="m" [user]="user" [chatroom]="chatroom" class="survey-msg"></open-text-survey>
+          <image-survey        *ngIf="m.survey.typeOfQuestion == globals.selectImage.key" [message]="m" [user]="user" [chatroom]="chatroom" class="survey-msg"></image-survey>
+          <radio-button-survey *ngIf="m.survey.typeOfQuestion == globals.radioButton.key" [message]="m" [user]="user" [chatroom]="chatroom" class="survey-msg"></radio-button-survey>
+          <check-box           *ngIf="m.survey.typeOfQuestion == globals.checkBox.key"    [message]="m" [user]="user" [chatroom]="chatroom" class="survey-msg"></check-box>
+          <how-much-survey     *ngIf="m.survey.typeOfQuestion == globals.howMuch.key"     [message]="m" [user]="user" [chatroom]="chatroom" class="survey-msg"></how-much-survey>
+          <rank-survey         *ngIf="m.survey.typeOfQuestion == globals.rank.key"        [message]="m" [user]="user" [chatroom]="chatroom" class="survey-msg"></rank-survey>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</ion-content>
+
+<ion-footer id="footer" no-border [style.height]="_isOpenEmojiPicker ? emojiHeight : textHeight">
+  <ion-grid class="input-wrap">
+    <ion-row>
+      <ion-col col-2>
+        <button ion-button clear icon-only item-right
+                (click)="switchEmojiPicker()" >
+          <ion-icon  name="happy"></ion-icon>
+        </button>
+
+      </ion-col>
+      <!--<ion-col col-1 *ngIf="user.typeOfUser == globals.coach">
+        <button ion-button clear icon-only item-right (click)="showSurveyPicker($event)">
+          <ion-icon name="attach"></ion-icon>
+        </button>
+      </ion-col>-->
+      <ion-col>
+        <ion-textarea
+                id="chat_input"
+                #chat_input
+                placeholder="{{messageWrite}}"
+                [(ngModel)]="editorMsg"
+                (keyup.enter)="sendMsg()"
+                (ionFocus)="focus()"
+                (input)="change()"
+        ></ion-textarea>
+      </ion-col>
+      <ion-col col-2>
+        <button ion-button clear icon-only item-right
+                (click)="sendMsg()" >
+          <ion-icon  name="ios-send" ios="ios-send" md="md-send"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <emoji-picker *ngIf="_isOpenEmojiPicker" [(ngModel)]="editorMsg"></emoji-picker>
+</ion-footer>

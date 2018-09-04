@@ -1,0 +1,32 @@
+<ion-header>
+
+  <ion-navbar>
+      <ion-title>{{coachee.fullname}}</ion-title>
+      <div class="indicator" [ngStyle]="{'background-color':chatroom.indicator}" item-end></div>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        Meeting minutes
+      </ion-card-title>
+      <p>{{moment().format('DD-MM-YYYY hh:mm')}}</p>
+
+    </ion-card-header>
+
+    <ion-row>
+      <ion-textarea col-9 [(ngModel)]="note" (keyup.enter)="sendNote()" placeholder="{{messageWrite}}">
+
+      </ion-textarea>
+      <button col-2 ion-button clear icon-only item-right
+              (click)="sendNote()" >
+        <ion-icon  name="send"></ion-icon>
+      </button>
+    </ion-row>
+  </ion-card>
+
+</ion-content>

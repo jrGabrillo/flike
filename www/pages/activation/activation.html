@@ -1,0 +1,26 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{activation}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <img src="assets/img/profiscore_chat_logo.png"/>
+  <form (submit)="sendActivation()">
+    <ion-item>
+      <ion-label floating color="primary">{{emailHint}}</ion-label>
+      <ion-input [(ngModel)]="email" type="email" name="email" autocomplete autocorrect required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating color="primary">{{passwordHint}}</ion-label>
+      <ion-input [(ngModel)]="password" type="password" name="password" required></ion-input>
+    </ion-item>
+    <ion-buttons text-center>
+      <button class="activation-button" ion-button color="dark">{{activation}}</button>
+    </ion-buttons>
+  </form>
+
+</ion-content>

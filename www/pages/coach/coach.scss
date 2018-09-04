@@ -1,0 +1,27 @@
+page-coach {
+  ion-navbar {
+    .logout {
+      color: color($colors, 'buttonDefault');
+      float: left;
+    }
+    .toolbar-title {
+      margin-top: 10px;
+    }
+  }
+  .profile-icon {
+    font-size: 2.2em;
+  }
+
+  ion-footer {
+    img {
+      width: 100%;
+    }
+  }
+
+  .indicator {
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+  }
+
+}

@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-navbar>
+    <button (click)="logout()" icon-only>
+      <ion-icon name="log-out" item-left></ion-icon>
+    </button>
+    <ion-title>{{chatroomByUser.customerName}}</ion-title>
+
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-nav [root]="AllPage"></ion-nav>
+</ion-content>
+
+
+<ion-footer>
+  <ion-item *ngIf="chatroomByUser.quote"><em [innerHTML]="chatroomByUser.quote"></em></ion-item>
+  <img *ngIf="chatroomByUser.quoteImgUrl" src="{{chatroomByUser.quoteImgUrl}}"/>
+</ion-footer>

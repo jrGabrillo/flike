@@ -1,0 +1,46 @@
+image-survey {
+  ion-grid {
+    .col {-webkit-flex-basis: 30%;}
+    .row {
+      ::before {width: 0;}
+    }
+    .survey-img-col {
+      width: 30%;
+      .survey-image-wrap {
+        position: relative;
+        min-width: 30%;
+        min-height: 80px;
+        ion-img {
+          width: 100%;
+          min-height: 80px;
+        }
+        .survey-badge {
+          position: absolute;
+          right: 10px;
+          bottom: 10px;
+          padding: 7px;
+          border-radius: 5px;
+          width: 30px;
+          height: 30px;
+        }
+        .img-option {
+          opacity:  0.5;
+        }
+        .option-selected {
+          opacity: 1!important;
+          border: 1px solid color($colors,'secondary');
+        }
+      }
+    }
+  }
+
+
+  .image-title {
+    color: color($colors,'fontcolor');
+  }
+  .footnote {
+    font-size: 0.8em;
+    color: color($colors,'fontcolor');
+  }
+
+}
